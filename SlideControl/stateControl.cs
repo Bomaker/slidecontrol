@@ -31,17 +31,18 @@ namespace SlideControl
         	{
 				switch (_thisState)
 				{
-					case unconnected:
+					case State.unconnected:
 						// try to connect
 						// attempt should be done every second (triggered by ext timer)
 						
-						if (this.connectSerial == true)
+						if (ConnectSerial())
 						{
-							_lastState = State.thisState;
+							_lastState = _thisState;
 							_thisState = State.idle;
 						}
+						break;
 					
-					case idle:
+					case State.idle:
 						
 						/* in case last state was unconnected
 						 * throw message
@@ -79,8 +80,9 @@ namespace SlideControl
 						  * lastState = thisState;
 						  * thisState = states.unconnected;
 						  */
+						break;
 						
-					case single_action:
+					case State.single_action:
 						
 						/*
 						 * if lastState was idle
@@ -101,23 +103,29 @@ namespace SlideControl
 						 * lastState = thisState;
 						 * thisState = states.idle;
 						 */
+						break;
 							
 						
-					case cont_action:
+					case State.cont_action:
 					
 						/*
 						 * stop or error ->	throw message
 						 * lastState = thisState;
 						 * thisState = states.idle;
 						 */
+						break;
 					
-					case menu:
+					case State.menu:
 						
 						/*
 						 * open config menu
 						 * lastState = thisState;
 						 * thisState = states.menu;
 						 */
+						break;
+
+					default:
+						throw new NotImplementedException(String.Format("State '{0}' is not handled", _thisState));
 						
 				}
 			}
