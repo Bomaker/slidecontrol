@@ -71,7 +71,7 @@ namespace SlideControl
 			this.button_rewind.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.button_rewind.Font = new System.Drawing.Font("Arial", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.button_rewind.Location = new System.Drawing.Point(120, 2);
-			this.button_rewind.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.button_rewind.Margin = new System.Windows.Forms.Padding(2);
 			this.button_rewind.Name = "button_rewind";
 			this.button_rewind.Size = new System.Drawing.Size(55, 56);
 			this.button_rewind.TabIndex = 2;
@@ -83,7 +83,7 @@ namespace SlideControl
 			this.button_eject.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.button_eject.Font = new System.Drawing.Font("Arial", 16F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.button_eject.Location = new System.Drawing.Point(61, 2);
-			this.button_eject.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.button_eject.Margin = new System.Windows.Forms.Padding(2);
 			this.button_eject.Name = "button_eject";
 			this.button_eject.Size = new System.Drawing.Size(55, 56);
 			this.button_eject.TabIndex = 3;
@@ -96,7 +96,7 @@ namespace SlideControl
 			this.button_prev.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.button_prev.Font = new System.Drawing.Font("Arial", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.button_prev.Location = new System.Drawing.Point(238, 2);
-			this.button_prev.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.button_prev.Margin = new System.Windows.Forms.Padding(2);
 			this.button_prev.Name = "button_prev";
 			this.button_prev.Size = new System.Drawing.Size(55, 56);
 			this.button_prev.TabIndex = 4;
@@ -108,7 +108,7 @@ namespace SlideControl
 			this.button_play.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.button_play.Font = new System.Drawing.Font("Arial", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.button_play.Location = new System.Drawing.Point(356, 2);
-			this.button_play.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.button_play.Margin = new System.Windows.Forms.Padding(2);
 			this.button_play.Name = "button_play";
 			this.button_play.Size = new System.Drawing.Size(55, 56);
 			this.button_play.TabIndex = 7;
@@ -120,7 +120,7 @@ namespace SlideControl
 			this.button_ff.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.button_ff.Font = new System.Drawing.Font("Arial", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.button_ff.Location = new System.Drawing.Point(179, 2);
-			this.button_ff.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.button_ff.Margin = new System.Windows.Forms.Padding(2);
 			this.button_ff.Name = "button_ff";
 			this.button_ff.Size = new System.Drawing.Size(55, 56);
 			this.button_ff.TabIndex = 6;
@@ -132,7 +132,7 @@ namespace SlideControl
 			this.button_rec.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.button_rec.Font = new System.Drawing.Font("Arial", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.button_rec.Location = new System.Drawing.Point(415, 2);
-			this.button_rec.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.button_rec.Margin = new System.Windows.Forms.Padding(2);
 			this.button_rec.Name = "button_rec";
 			this.button_rec.Size = new System.Drawing.Size(55, 56);
 			this.button_rec.TabIndex = 5;
@@ -144,7 +144,7 @@ namespace SlideControl
 			this.button_cam.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.button_cam.Font = new System.Drawing.Font("Arial", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.button_cam.Location = new System.Drawing.Point(474, 2);
-			this.button_cam.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.button_cam.Margin = new System.Windows.Forms.Padding(2);
 			this.button_cam.Name = "button_cam";
 			this.button_cam.Size = new System.Drawing.Size(55, 56);
 			this.button_cam.TabIndex = 9;
@@ -156,19 +156,20 @@ namespace SlideControl
 			this.button_menu.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.button_menu.Font = new System.Drawing.Font("Arial", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.button_menu.Location = new System.Drawing.Point(533, 2);
-			this.button_menu.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.button_menu.Margin = new System.Windows.Forms.Padding(2);
 			this.button_menu.Name = "button_menu";
 			this.button_menu.Size = new System.Drawing.Size(59, 56);
 			this.button_menu.TabIndex = 8;
 			this.button_menu.Text = "?";
 			this.button_menu.UseVisualStyleBackColor = true;
+			this.button_menu.Click += new System.EventHandler(this.Button_menuClick);
 			// 
 			// button_next
 			// 
 			this.button_next.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.button_next.Font = new System.Drawing.Font("Arial", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.button_next.Location = new System.Drawing.Point(297, 2);
-			this.button_next.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.button_next.Margin = new System.Windows.Forms.Padding(2);
 			this.button_next.Name = "button_next";
 			this.button_next.Size = new System.Drawing.Size(55, 56);
 			this.button_next.TabIndex = 10;
@@ -181,7 +182,7 @@ namespace SlideControl
 			this.textBox_output.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.textBox_output.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.textBox_output.Location = new System.Drawing.Point(61, 62);
-			this.textBox_output.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.textBox_output.Margin = new System.Windows.Forms.Padding(2);
 			this.textBox_output.Multiline = true;
 			this.textBox_output.Name = "textBox_output";
 			this.textBox_output.ReadOnly = true;
@@ -244,7 +245,7 @@ namespace SlideControl
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(594, 121);
 			this.Controls.Add(this.tableLayoutPanel);
-			this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.Margin = new System.Windows.Forms.Padding(2);
 			this.Name = "MainForm";
 			this.Text = "SlideControl Panel";
 			this.tableLayoutPanel.ResumeLayout(false);

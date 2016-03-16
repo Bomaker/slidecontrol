@@ -32,6 +32,14 @@ namespace SlideControl
 			//
 			//Bodack
 			//
+			
+			// example for deactivating a button (should be done depending on state)
+			button_eject.Enabled = false;
+		}
+		void Button_menuClick(object sender, EventArgs e)
+		{
+			// example for (re-)activating a button (should be done depending on state)
+			button_eject.Enabled = true;
 		}
 	}
 }
