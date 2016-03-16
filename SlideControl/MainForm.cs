@@ -1,17 +1,9 @@
-﻿/*
- * Created by SharpDevelop.
- * User: Sysop
- * Date: 10.03.2016
- * Time: 20:27
- * 
- * To change this template use Tools | Options | Coding | Edit Standard Headers.
- */
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace Slidecontrol
+namespace SlideControl
 {
 	/// <summary>
 	/// Description of MainForm.

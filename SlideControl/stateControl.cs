@@ -1,48 +1,44 @@
-﻿/*
- * Created by SharpDevelop.
- * User: Sysop
- * Date: 14.03.2016
- * Time: 19:42
- * 
- * To change this template use Tools | Options | Coding | Edit Standard Headers.
- */
-using System;
+﻿using System;
 
-namespace Slidecontrol
+namespace SlideControl
 {
-	enum states {reset, unconnected, menu, idle, single_action, cont_action};
+	enum State
+	{
+		reset, unconnected, menu, idle, single_action, cont_action
+	};
 	
 	/// <summary>
 	/// Description of state.
 	/// </summary>
-	class stateControl
+	class StateControl
 	{
-		private states thisState;
-		private states lastState;
-		private states nextState;
+		private State _thisState;
+		private State _lastState;
+		private State _nextState;
 
 		// constructor
-		public stateControl()
+		public StateControl()
 		{
-			private thisState = states.unconnected;
-			private lastState = states.reset;
+			_thisState = State.unconnected;
+			_lastState = State.reset;
 		}
 		
-		private void nextState() {
+		private void NextState() {
 			
 			// statemashine must be run 2 times in order to execute also input
 			// conditions of states
 			for (int i = 1; i <= 2; i++)
         	{
-				switch (thisState){
-						
+				switch (_thisState)
+				{
 					case unconnected:
 						// try to connect
 						// attempt should be done every second (triggered by ext timer)
 						
-						if (this.connectSerial == true) {
-							lastState = states.thisState;
-							thisState = states.idle;
+						if (this.connectSerial == true)
+						{
+							_lastState = State.thisState;
+							_thisState = State.idle;
 						}
 					
 					case idle:
@@ -124,12 +120,11 @@ namespace Slidecontrol
 						 */
 						
 				}
-						
 			}
-
 		}
 		
-		private bool connectSerial() {
+		private bool ConnectSerial()
+		{
 			// try to connect to serial using parameters from settin
 			// do this by sending reset command
 			// if answer is status 0 then there is a connection
