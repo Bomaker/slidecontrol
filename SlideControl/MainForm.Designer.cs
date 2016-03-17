@@ -25,7 +25,7 @@ namespace SlideControl
 		private System.Windows.Forms.Button button_next;
 		private System.Windows.Forms.TextBox textBox_output;
 		private System.Windows.Forms.Label label_No;
-		private System.IO.Ports.SerialPort serialPort1;
+		private System.IO.Ports.SerialPort serialPort;
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
 		
 		/// <summary>
@@ -61,7 +61,7 @@ namespace SlideControl
 			this.button_next = new System.Windows.Forms.Button();
 			this.textBox_output = new System.Windows.Forms.TextBox();
 			this.label_No = new System.Windows.Forms.Label();
-			this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
+			this.serialPort = new System.IO.Ports.SerialPort(this.components);
 			this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
 			this.tableLayoutPanel.SuspendLayout();
 			this.SuspendLayout();
@@ -70,10 +70,10 @@ namespace SlideControl
 			// 
 			this.button_rewind.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.button_rewind.Font = new System.Drawing.Font("Arial", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.button_rewind.Location = new System.Drawing.Point(120, 2);
+			this.button_rewind.Location = new System.Drawing.Point(67, 2);
 			this.button_rewind.Margin = new System.Windows.Forms.Padding(2);
 			this.button_rewind.Name = "button_rewind";
-			this.button_rewind.Size = new System.Drawing.Size(55, 56);
+			this.button_rewind.Size = new System.Drawing.Size(61, 56);
 			this.button_rewind.TabIndex = 2;
 			this.button_rewind.Text = "<<";
 			this.button_rewind.UseVisualStyleBackColor = true;
@@ -82,10 +82,10 @@ namespace SlideControl
 			// 
 			this.button_eject.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.button_eject.Font = new System.Drawing.Font("Arial", 16F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.button_eject.Location = new System.Drawing.Point(61, 2);
+			this.button_eject.Location = new System.Drawing.Point(2, 2);
 			this.button_eject.Margin = new System.Windows.Forms.Padding(2);
 			this.button_eject.Name = "button_eject";
-			this.button_eject.Size = new System.Drawing.Size(55, 56);
+			this.button_eject.Size = new System.Drawing.Size(61, 56);
 			this.button_eject.TabIndex = 3;
 			this.button_eject.Text = "^";
 			this.button_eject.UseVisualStyleBackColor = true;
@@ -95,10 +95,10 @@ namespace SlideControl
 			// 
 			this.button_prev.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.button_prev.Font = new System.Drawing.Font("Arial", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.button_prev.Location = new System.Drawing.Point(238, 2);
+			this.button_prev.Location = new System.Drawing.Point(197, 2);
 			this.button_prev.Margin = new System.Windows.Forms.Padding(2);
 			this.button_prev.Name = "button_prev";
-			this.button_prev.Size = new System.Drawing.Size(55, 56);
+			this.button_prev.Size = new System.Drawing.Size(61, 56);
 			this.button_prev.TabIndex = 4;
 			this.button_prev.Text = "|<<";
 			this.button_prev.UseVisualStyleBackColor = true;
@@ -107,10 +107,10 @@ namespace SlideControl
 			// 
 			this.button_play.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.button_play.Font = new System.Drawing.Font("Arial", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.button_play.Location = new System.Drawing.Point(356, 2);
+			this.button_play.Location = new System.Drawing.Point(327, 2);
 			this.button_play.Margin = new System.Windows.Forms.Padding(2);
 			this.button_play.Name = "button_play";
-			this.button_play.Size = new System.Drawing.Size(55, 56);
+			this.button_play.Size = new System.Drawing.Size(61, 56);
 			this.button_play.TabIndex = 7;
 			this.button_play.Text = ">";
 			this.button_play.UseVisualStyleBackColor = true;
@@ -119,10 +119,10 @@ namespace SlideControl
 			// 
 			this.button_ff.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.button_ff.Font = new System.Drawing.Font("Arial", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.button_ff.Location = new System.Drawing.Point(179, 2);
+			this.button_ff.Location = new System.Drawing.Point(132, 2);
 			this.button_ff.Margin = new System.Windows.Forms.Padding(2);
 			this.button_ff.Name = "button_ff";
-			this.button_ff.Size = new System.Drawing.Size(55, 56);
+			this.button_ff.Size = new System.Drawing.Size(61, 56);
 			this.button_ff.TabIndex = 6;
 			this.button_ff.Text = ">>";
 			this.button_ff.UseVisualStyleBackColor = true;
@@ -131,10 +131,10 @@ namespace SlideControl
 			// 
 			this.button_rec.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.button_rec.Font = new System.Drawing.Font("Arial", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.button_rec.Location = new System.Drawing.Point(415, 2);
+			this.button_rec.Location = new System.Drawing.Point(392, 2);
 			this.button_rec.Margin = new System.Windows.Forms.Padding(2);
 			this.button_rec.Name = "button_rec";
-			this.button_rec.Size = new System.Drawing.Size(55, 56);
+			this.button_rec.Size = new System.Drawing.Size(61, 56);
 			this.button_rec.TabIndex = 5;
 			this.button_rec.Text = "O";
 			this.button_rec.UseVisualStyleBackColor = true;
@@ -143,10 +143,10 @@ namespace SlideControl
 			// 
 			this.button_cam.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.button_cam.Font = new System.Drawing.Font("Arial", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.button_cam.Location = new System.Drawing.Point(474, 2);
+			this.button_cam.Location = new System.Drawing.Point(457, 2);
 			this.button_cam.Margin = new System.Windows.Forms.Padding(2);
 			this.button_cam.Name = "button_cam";
-			this.button_cam.Size = new System.Drawing.Size(55, 56);
+			this.button_cam.Size = new System.Drawing.Size(61, 56);
 			this.button_cam.TabIndex = 9;
 			this.button_cam.Text = "[o]";
 			this.button_cam.UseVisualStyleBackColor = true;
@@ -155,10 +155,10 @@ namespace SlideControl
 			// 
 			this.button_menu.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.button_menu.Font = new System.Drawing.Font("Arial", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.button_menu.Location = new System.Drawing.Point(533, 2);
+			this.button_menu.Location = new System.Drawing.Point(522, 2);
 			this.button_menu.Margin = new System.Windows.Forms.Padding(2);
 			this.button_menu.Name = "button_menu";
-			this.button_menu.Size = new System.Drawing.Size(59, 56);
+			this.button_menu.Size = new System.Drawing.Size(70, 56);
 			this.button_menu.TabIndex = 8;
 			this.button_menu.Text = "?";
 			this.button_menu.UseVisualStyleBackColor = true;
@@ -168,25 +168,25 @@ namespace SlideControl
 			// 
 			this.button_next.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.button_next.Font = new System.Drawing.Font("Arial", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.button_next.Location = new System.Drawing.Point(297, 2);
+			this.button_next.Location = new System.Drawing.Point(262, 2);
 			this.button_next.Margin = new System.Windows.Forms.Padding(2);
 			this.button_next.Name = "button_next";
-			this.button_next.Size = new System.Drawing.Size(55, 56);
+			this.button_next.Size = new System.Drawing.Size(61, 56);
 			this.button_next.TabIndex = 10;
 			this.button_next.Text = ">>|";
 			this.button_next.UseVisualStyleBackColor = true;
 			// 
 			// textBox_output
 			// 
-			this.tableLayoutPanel.SetColumnSpan(this.textBox_output, 9);
+			this.tableLayoutPanel.SetColumnSpan(this.textBox_output, 8);
 			this.textBox_output.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.textBox_output.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.textBox_output.Location = new System.Drawing.Point(61, 62);
+			this.textBox_output.Location = new System.Drawing.Point(67, 62);
 			this.textBox_output.Margin = new System.Windows.Forms.Padding(2);
 			this.textBox_output.Multiline = true;
 			this.textBox_output.Name = "textBox_output";
 			this.textBox_output.ReadOnly = true;
-			this.textBox_output.Size = new System.Drawing.Size(531, 57);
+			this.textBox_output.Size = new System.Drawing.Size(525, 57);
 			this.textBox_output.TabIndex = 11;
 			this.textBox_output.WordWrap = false;
 			// 
@@ -197,28 +197,28 @@ namespace SlideControl
 			this.label_No.Location = new System.Drawing.Point(2, 60);
 			this.label_No.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 			this.label_No.Name = "label_No";
-			this.label_No.Size = new System.Drawing.Size(55, 61);
+			this.label_No.Size = new System.Drawing.Size(61, 61);
 			this.label_No.TabIndex = 12;
 			this.label_No.Text = "00";
 			this.label_No.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
-			// serialPort1
+			// serialPort
 			// 
-			this.serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.SerialPort1DataReceived);
+			this.serialPort.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.SerialPortDataReceived);
 			// 
 			// tableLayoutPanel
 			// 
 			this.tableLayoutPanel.ColumnCount = 10;
-			this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
-			this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
-			this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
-			this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
-			this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
-			this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
-			this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
-			this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
-			this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
-			this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
+			this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+			this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
+			this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
+			this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
+			this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
+			this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
+			this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
+			this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
+			this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
+			this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
 			this.tableLayoutPanel.Controls.Add(this.button_rewind, 2, 0);
 			this.tableLayoutPanel.Controls.Add(this.button_ff, 3, 0);
 			this.tableLayoutPanel.Controls.Add(this.button_next, 5, 0);
@@ -228,8 +228,8 @@ namespace SlideControl
 			this.tableLayoutPanel.Controls.Add(this.button_rec, 7, 0);
 			this.tableLayoutPanel.Controls.Add(this.button_menu, 9, 0);
 			this.tableLayoutPanel.Controls.Add(this.button_eject, 1, 0);
-			this.tableLayoutPanel.Controls.Add(this.label_No, 0, 1);
-			this.tableLayoutPanel.Controls.Add(this.textBox_output, 1, 1);
+			this.tableLayoutPanel.Controls.Add(this.label_No, 1, 1);
+			this.tableLayoutPanel.Controls.Add(this.textBox_output, 2, 1);
 			this.tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tableLayoutPanel.Location = new System.Drawing.Point(0, 0);
 			this.tableLayoutPanel.Name = "tableLayoutPanel";

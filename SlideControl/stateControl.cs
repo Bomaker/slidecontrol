@@ -1,35 +1,68 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace SlideControl
 {
-	enum State
-	{
-		reset, unconnected, menu, idle, single_action, cont_action
-	};
-	
 	/// <summary>
-	/// Description of state.
+	/// State machine, handling events and maintaining the current state 
 	/// </summary>
-	class StateControl
+	public class StateControl
 	{
-		private State _thisState;
-		private State _lastState;
-		private State _nextState;
+		// publicly accessible current state and last event
+		public State CurrentState { get; private set; }
+		
+		// event triggered on event changes
+		public event EventHandler<StateLogEventArgs> StateChanged;
 
+		// all past transitions for logging and debugging purposes
+		public ReadOnlyCollection<StateLogEventArgs> Log { get { return _log.AsReadOnly(); } }
+
+		// internal r/w collection for the history		
+		private List<StateLogEventArgs> _log;
+		
 		// constructor
 		public StateControl()
 		{
-			_thisState = State.unconnected;
-			_lastState = State.reset;
+			_log = new List<StateLogEventArgs>();
+			
+			CurrentState = State.reset;
 		}
 		
-		private void NextState() {
+		public void Initialize()
+		{
+			GoToState(Event.init, State.unconnected);
+		}
+
+		private void GoToState(Event trigger, State newState)
+		{
+			State fromState = CurrentState;
+			State toState = newState;
+			var log = new StateLogEventArgs(DateTime.Now, trigger, fromState, toState);
+
+			// always log out the trial event if there was no effective change in state (debug purpose)
+			_log.Add(log);
 			
+			// if we want the same state, then do nothing
+			if (fromState != toState)
+			{
+				CurrentState = toState;
+				var handler = StateChanged;
+				if (handler != null)
+					handler(this, log);
+			}
+		}
+		
+		// Handle the event and return the current state
+		public State HandleEvent(Event trigger)
+		{
+			//HACK: this shall not be needed, only react on events and set state + trigger event accordingly
+
 			// statemashine must be run 2 times in order to execute also input
 			// conditions of states
 			for (int i = 1; i <= 2; i++)
         	{
-				switch (_thisState)
+				switch (CurrentState)
 				{
 					case State.unconnected:
 						// try to connect
@@ -37,8 +70,7 @@ namespace SlideControl
 						
 						if (ConnectSerial())
 						{
-							_lastState = _thisState;
-							_thisState = State.idle;
+							GoToState(Event.serial_connected, State.idle);
 						}
 						break;
 					
@@ -125,15 +157,17 @@ namespace SlideControl
 						break;
 
 					default:
-						throw new NotImplementedException(String.Format("State '{0}' is not handled", _thisState));
+						throw new NotImplementedException(String.Format("State '{0}' is not handled", CurrentState));
 						
 				}
 			}
+			return CurrentState;
 		}
 		
+		// TODO: this shall not be part of the StateMachine
 		private bool ConnectSerial()
 		{
-			// try to connect to serial using parameters from settin
+			// try to connect to serial using parameters from settings
 			// do this by sending reset command
 			// if answer is status 0 then there is a connection
 			return true;
