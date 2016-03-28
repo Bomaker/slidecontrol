@@ -60,8 +60,8 @@ namespace SlideControl
 
 			// statemashine must be run 2 times in order to execute also input
 			// conditions of states
-			for (int i = 1; i <= 2; i++)
-        	{
+			//for (int i = 1; i <= 2; i++)
+        	//{
 				switch (CurrentState)
 				{
 					case State.unconnected:
@@ -86,18 +86,29 @@ namespace SlideControl
 						 * usr_rec
 						 * usr_ff
 						 * usr_rewind
-						 * lastState = thisState;
-						 * thisState = states.cont_action;
 						 */ 
+						if (trigger ==  Event.usr_play || 
+						   trigger ==  Event.usr_rec || 
+						   trigger ==  Event.usr_ff || 
+						   trigger ==  Event.usr_rewind)
+						{
+						 	GoToState(trigger, State.cont_action);
+						}
 						
 						/*
-						  * in case there was one of these:usr_eject
+						  * in case there was one of these:
+						  * usr_eject
 						  * usr_next
 						  * usr_prev
 						  * usr_cam
-						  * lastState = thisState;
-						  * thisState = states.cont_single
 						  */
+						if (trigger ==  Event.usr_eject || 
+						   trigger ==  Event.usr_next || 
+						   trigger ==  Event.usr_prev || 
+						   trigger ==  Event.usr_cam)
+						{
+						 	GoToState(trigger, State.single_action);
+						}
 						
 						/*
  						 * if there was a usr_menu
@@ -105,6 +116,10 @@ namespace SlideControl
  						 * lastState = thisState;
  						 * thisState = states.cont_single;
  						 */
+						if (trigger ==  Event.usr_menu)
+						{
+						 	GoToState(trigger, State.menu);
+						}
 	
 						/*
 						  * if there was an error or timeout
@@ -112,29 +127,61 @@ namespace SlideControl
 						  * lastState = thisState;
 						  * thisState = states.unconnected;
 						  */
-						break;
+
+						 break;
 						
 					case State.single_action:
 						
 						/*
 						 * if lastState was idle
 						 * check for events
-						 * usr_eject -> 	reset 0 	
-						 *
-						 * usr_next -> 		set_dir configDirection
-						 * 					switch 1
-						 * 					
-						 * usr_prev ->		set_dir not(configDirection)
-						 * 					switch 1
-						 * 
-						 * usr_cam -> 		trigger_cam
-						 * 
 						 * stop or error ->	throw message
-						 * 
-						 * afterwards:
-						 * lastState = thisState;
-						 * thisState = states.idle;
 						 */
+						
+						
+						/* reset counter and return to idle
+						 * usr_eject -> 	reset 0 
+						 */
+						if (trigger ==  Event.usr_eject)
+						{
+						 	GoToState(trigger, State.idle);
+						}
+						
+												 
+						/* usr_next -> 		set_dir configDirection
+						 * 					switch 1
+						 */
+						if (trigger ==  Event.usr_next)
+						{
+						 	GoToState(trigger, State.idle);
+						}
+						
+						/* usr_prev ->		set_dir not(configDirection)
+						 * 					switch 1
+						 */
+						if (trigger ==  Event.usr_prev)
+						{
+						 	GoToState(trigger, State.idle);
+						}
+						
+						/* 
+						 * usr_cam -> 		trigger_cam
+						 */
+						if (trigger ==  Event.usr_cam)
+						{
+						 	GoToState(trigger, State.idle);
+						}
+						
+						
+						/* return to idle (this should never occur, because one of the above must
+						 * have been done alredy
+						 */
+						if (trigger ==  Event.usr_stop)
+						{
+						 	GoToState(trigger, State.idle);
+						}
+
+						
 						break;
 							
 						
@@ -145,6 +192,10 @@ namespace SlideControl
 						 * lastState = thisState;
 						 * thisState = states.idle;
 						 */
+						if (trigger ==  Event.usr_stop)
+						{
+						 	GoToState(trigger, State.idle);
+						}
 						break;
 					
 					case State.menu:
@@ -154,12 +205,17 @@ namespace SlideControl
 						 * lastState = thisState;
 						 * thisState = states.menu;
 						 */
+						if (trigger ==  Event.usr_menu_exit)
+						{
+						 	GoToState(trigger, State.idle);
+						}
+						
 						break;
 
 					default:
 						throw new NotImplementedException(String.Format("State '{0}' is not handled", CurrentState));
 						
-				}
+				//}
 			}
 			return CurrentState;
 		}

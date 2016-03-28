@@ -19,6 +19,8 @@ namespace SlideControl
 		usr_rec,
 		usr_cam,
 		usr_menu,
+		usr_stop,
+		usr_menu_exit,
 		timeout,
 		stop,
 		error,
