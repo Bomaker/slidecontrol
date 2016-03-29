@@ -24,6 +24,7 @@ namespace SlideControl
 		timeout,
 		stop,
 		error,
+		exit,
 	}
 }
 

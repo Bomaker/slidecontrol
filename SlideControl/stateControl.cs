@@ -50,6 +50,12 @@ namespace SlideControl
 				var handler = StateChanged;
 				if (handler != null)
 					handler(this, log);
+				
+				/* Tricky: One event might cause more than one state change (e.g. single_mode and
+				 * back to idle right away. Also needed from unconnected state
+				 * Therefore events are handeled until the state is stable
+				*/
+				HandleEvent(trigger);
 			}
 		}
 		
@@ -60,162 +66,168 @@ namespace SlideControl
 
 			// statemashine must be run 2 times in order to execute also input
 			// conditions of states
-			//for (int i = 1; i <= 2; i++)
-        	//{
-				switch (CurrentState)
-				{
-					case State.unconnected:
-						// try to connect
-						// attempt should be done every second (triggered by ext timer)
-						
-						if (ConnectSerial())
-						{
-							GoToState(Event.serial_connected, State.idle);
-						}
-						break;
+			
+			switch (CurrentState)
+			{
+				case State.unconnected:
+					// try to connect
+					// attempt should be done every second (triggered by ext timer)
 					
-					case State.idle:
-						
-						/* in case last state was unconnected
-						 * throw message
-						 * lastState = thisState;
-						 */
-						
-						/* 	in case there was one of these do:
-						 * usr_play
-						 * usr_rec
-						 * usr_ff
-						 * usr_rewind
-						 */ 
-						if (trigger ==  Event.usr_play || 
-						   trigger ==  Event.usr_rec || 
-						   trigger ==  Event.usr_ff || 
-						   trigger ==  Event.usr_rewind)
-						{
-						 	GoToState(trigger, State.cont_action);
-						}
-						
-						/*
-						  * in case there was one of these:
-						  * usr_eject
-						  * usr_next
-						  * usr_prev
-						  * usr_cam
-						  */
-						if (trigger ==  Event.usr_eject || 
-						   trigger ==  Event.usr_next || 
-						   trigger ==  Event.usr_prev || 
-						   trigger ==  Event.usr_cam)
-						{
-						 	GoToState(trigger, State.single_action);
-						}
-						
-						/*
- 						 * if there was a usr_menu
- 						 * open settings menu
- 						 * lastState = thisState;
- 						 * thisState = states.cont_single;
- 						 */
-						if (trigger ==  Event.usr_menu)
-						{
-						 	GoToState(trigger, State.menu);
-						}
-	
-						/*
-						  * if there was an error or timeout
-						  * through error meesage and/or go to
-						  * lastState = thisState;
-						  * thisState = states.unconnected;
-						  */
-
-						 break;
-						
-					case State.single_action:
-						
-						/*
-						 * if lastState was idle
-						 * check for events
-						 * stop or error ->	throw message
-						 */
-						
-						
-						/* reset counter and return to idle
-						 * usr_eject -> 	reset 0 
-						 */
-						if (trigger ==  Event.usr_eject)
-						{
-						 	GoToState(trigger, State.idle);
-						}
-						
-												 
-						/* usr_next -> 		set_dir configDirection
-						 * 					switch 1
-						 */
-						if (trigger ==  Event.usr_next)
-						{
-						 	GoToState(trigger, State.idle);
-						}
-						
-						/* usr_prev ->		set_dir not(configDirection)
-						 * 					switch 1
-						 */
-						if (trigger ==  Event.usr_prev)
-						{
-						 	GoToState(trigger, State.idle);
-						}
-						
-						/* 
-						 * usr_cam -> 		trigger_cam
-						 */
-						if (trigger ==  Event.usr_cam)
-						{
-						 	GoToState(trigger, State.idle);
-						}
-						
-						
-						/* return to idle (this should never occur, because one of the above must
-						 * have been done alredy
-						 */
-						if (trigger ==  Event.usr_stop)
-						{
-						 	GoToState(trigger, State.idle);
-						}
-
-						
-						break;
-							
-						
-					case State.cont_action:
+					if (ConnectSerial())
+					{
+						GoToState(Event.serial_connected, State.idle);
+					}
+					break;
+				
+				case State.idle:
 					
-						/*
-						 * stop or error ->	throw message
-						 * lastState = thisState;
-						 * thisState = states.idle;
-						 */
-						if (trigger ==  Event.usr_stop)
-						{
-						 	GoToState(trigger, State.idle);
-						}
-						break;
-					
-					case State.menu:
-						
-						/*
-						 * open config menu
-						 * lastState = thisState;
-						 * thisState = states.menu;
-						 */
-						if (trigger ==  Event.usr_menu_exit)
-						{
-						 	GoToState(trigger, State.idle);
-						}
-						
-						break;
+					/* in case last state was unconnected
+					 * throw message
+					 * lastState = thisState;
+					 */
 
-					default:
-						throw new NotImplementedException(String.Format("State '{0}' is not handled", CurrentState));
+					if (trigger ==  Event.exit)
+					{
+					 	// do nothing
+					}
+					
+					/* 	in case there was one of these do:
+					 * usr_play
+					 * usr_rec
+					 * usr_ff
+					 * usr_rewind
+					 */ 
+					if (trigger ==  Event.usr_play || 
+					   trigger ==  Event.usr_rec || 
+					   trigger ==  Event.usr_ff || 
+					   trigger ==  Event.usr_rewind)
+					{
+					 	GoToState(trigger, State.cont_action);
+					}
+					
+					/*
+					  * in case there was one of these:
+					  * usr_eject
+					  * usr_next
+					  * usr_prev
+					  * usr_cam
+					  */
+					if (trigger ==  Event.usr_eject || 
+					   trigger ==  Event.usr_next || 
+					   trigger ==  Event.usr_prev || 
+					   trigger ==  Event.usr_cam)
+					{
+					 	GoToState(trigger, State.single_action);
+					}
+					
+					/*
+						 * if there was a usr_menu
+						 * open settings menu
+						 * lastState = thisState;
+						 * thisState = states.cont_single;
+						 */
+					if (trigger ==  Event.usr_menu)
+					{
+					 	GoToState(trigger, State.menu);
+					}
+
+					/*
+					  * if there was an error or timeout
+					  * through error meesage and/or go to
+					  * lastState = thisState;
+					  * thisState = states.unconnected;
+					  */
+
+					 break;
+					
+				case State.single_action:
+					
+					/*
+					 * if lastState was idle
+					 * check for events
+					 * stop or error ->	throw message
+					 */
+					
+					
+					/* reset counter and return to idle
+					 * usr_eject -> 	reset 0 
+					 */
+					if (trigger ==  Event.usr_eject)
+					{
+					 	GoToState(Event.exit, State.idle);
+					} else
+					
+											 
+					/* usr_next -> 		set_dir configDirection
+					 * 					switch 1
+					 */
+					if (trigger ==  Event.usr_next)
+					{
+					 	GoToState(Event.exit, State.idle);
+					} else
+					
+					/* usr_prev ->		set_dir not(configDirection)
+					 * 					switch 1
+					 */
+					if (trigger ==  Event.usr_prev)
+					{
+					 	GoToState(Event.exit, State.idle);
+					} else
+					
+					/* 
+					 * usr_cam -> 		trigger_cam
+					 */
+					if (trigger ==  Event.usr_cam)
+					{
+					 	GoToState(Event.exit, State.idle);
+					} else 
+					
+					
+					/* return to idle (this should never occur, because one of the above must
+					 * have been done alredy
+					 */
+					if (trigger ==  Event.usr_stop)
+					{
+					 	GoToState(Event.exit, State.idle);
+					} else
 						
-				//}
+					{
+						GoToState(Event.exit, State.idle);
+					}
+					
+					break;
+						
+					
+				case State.cont_action:
+				
+					/*
+					 * stop or error ->	throw message
+					 * lastState = thisState;
+					 * thisState = states.idle;
+					 */
+					if (trigger ==  Event.usr_stop)
+					{
+					 	GoToState(trigger, State.idle);
+					}
+					break;
+				
+				case State.menu:
+					
+					/*
+					 * open config menu
+					 * lastState = thisState;
+					 * thisState = states.menu;
+					 */
+					if (trigger ==  Event.usr_menu_exit)
+					{
+					 	GoToState(trigger, State.idle);
+					}
+					
+					break;
+
+				default:
+					throw new NotImplementedException(String.Format("State '{0}' is not handled", CurrentState));
+					
 			}
 			return CurrentState;
 		}

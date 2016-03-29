@@ -56,12 +56,6 @@ namespace SlideControl
 						
 					case State.single_action:
 						
-						/*
-						 * only stop is enabled
-						 */
-						SetButtonsAllDisabled();
-						button_stop.Enabled = true;
-						
 						
 						break;
 							
@@ -105,9 +99,6 @@ namespace SlideControl
 		{
 			_stateMachine.HandleEvent(Event.usr_eject);
 			
-			// example for deactivating a button (should be done depending on state)
-			button_eject.Enabled = false;
-			button_eject.BackColor = System.Drawing.Color.YellowGreen;;
 		}
 		void Button_menuClick(object sender, EventArgs e)
 		{
@@ -127,11 +118,13 @@ namespace SlideControl
 		}
 		void Button_rewindMouseClick(object sender, MouseEventArgs e)
 		{
-			_stateMachine.HandleEvent(Event.usr_rewind);	
+			button_rewind.BackColor = System.Drawing.Color.YellowGreen;
+			_stateMachine.HandleEvent(Event.usr_rewind);
 		}
 		void Button_ffClick(object sender, EventArgs e)
 		{
-			_stateMachine.HandleEvent(Event.usr_ff);	
+			button_ff.BackColor = System.Drawing.Color.YellowGreen;
+			_stateMachine.HandleEvent(Event.usr_ff);
 	
 		}
 		void Button_prevClick(object sender, EventArgs e)
@@ -146,12 +139,14 @@ namespace SlideControl
 		}
 		void Button_playClick(object sender, EventArgs e)
 		{
-			_stateMachine.HandleEvent(Event.usr_play);	
+			button_play.BackColor = System.Drawing.Color.YellowGreen;
+			_stateMachine.HandleEvent(Event.usr_play);
 	
 		}
 		void Button_recClick(object sender, EventArgs e)
 		{
-			_stateMachine.HandleEvent(Event.usr_rec);	
+			button_rec.BackColor = System.Drawing.Color.YellowGreen;
+			_stateMachine.HandleEvent(Event.usr_rec);
 	
 		}
 		void Button_camClick(object sender, EventArgs e)
@@ -161,7 +156,7 @@ namespace SlideControl
 		}
 		void Button_stopClick(object sender, EventArgs e)
 		{
-			_stateMachine.HandleEvent(Event.usr_cam);	
+			_stateMachine.HandleEvent(Event.usr_stop);	
 	
 		}
 		
@@ -213,6 +208,6 @@ namespace SlideControl
 				_stateMachine.HandleEvent(Event.usr_menu_exit);
 		}
 
-		
+
 	}
 }

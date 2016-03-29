@@ -77,7 +77,7 @@ namespace SlideControl
 			this.button_rewind.Name = "button_rewind";
 			this.button_rewind.Size = new System.Drawing.Size(73, 77);
 			this.button_rewind.TabIndex = 2;
-			this.button_rewind.Text = "<<";
+			this.button_rewind.Text = "|<";
 			this.button_rewind.UseVisualStyleBackColor = true;
 			this.button_rewind.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Button_rewindMouseClick);
 			// 
@@ -103,7 +103,7 @@ namespace SlideControl
 			this.button_prev.Name = "button_prev";
 			this.button_prev.Size = new System.Drawing.Size(73, 77);
 			this.button_prev.TabIndex = 4;
-			this.button_prev.Text = "|<<";
+			this.button_prev.Text = "<<";
 			this.button_prev.UseVisualStyleBackColor = true;
 			this.button_prev.Click += new System.EventHandler(this.Button_prevClick);
 			// 
@@ -129,7 +129,7 @@ namespace SlideControl
 			this.button_ff.Name = "button_ff";
 			this.button_ff.Size = new System.Drawing.Size(73, 77);
 			this.button_ff.TabIndex = 6;
-			this.button_ff.Text = ">>";
+			this.button_ff.Text = ">|";
 			this.button_ff.UseVisualStyleBackColor = true;
 			this.button_ff.Click += new System.EventHandler(this.Button_ffClick);
 			// 
@@ -181,7 +181,7 @@ namespace SlideControl
 			this.button_next.Name = "button_next";
 			this.button_next.Size = new System.Drawing.Size(73, 77);
 			this.button_next.TabIndex = 10;
-			this.button_next.Text = ">>|";
+			this.button_next.Text = ">>";
 			this.button_next.UseVisualStyleBackColor = true;
 			this.button_next.Click += new System.EventHandler(this.Button_nextClick);
 			// 
