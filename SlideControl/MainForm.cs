@@ -11,6 +11,7 @@ namespace SlideControl
 	public partial class MainForm : Form
 	{
 		private StateControl _stateMachine;
+		private readonly ArduinoController _arduinoController;
 		
 		public MainForm()
 		{
@@ -19,15 +20,27 @@ namespace SlideControl
 			//
 			InitializeComponent();
 			
-			//
+			/*
+			 * Setup statemachine
+			 */
 			// TODO: Add constructor code after the InitializeComponent() call.
-			//
+			
 			_stateMachine = new StateControl();
 			_stateMachine.StateChanged += StateMachine_StateChanged;
+		
 
 			
-			// this will trigger one event
-			_stateMachine.Initialize();
+			/*
+			 * setup Arduino controller
+			 */
+			
+			_arduinoController = new ArduinoController();
+            _arduinoController.Setup(this);
+            
+            // this will trigger one event
+			_stateMachine.Initialize(_arduinoController);
+
+
 		}
 
 		void StateMachine_StateChanged(object sender, StateLogEventArgs e)

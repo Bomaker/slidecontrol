@@ -20,6 +20,8 @@ namespace SlideControl
 
 		// internal r/w collection for the history		
 		private List<StateLogEventArgs> _log;
+
+		private ArduinoController _arduinoController;
 		
 		// constructor
 		public StateControl()
@@ -27,11 +29,13 @@ namespace SlideControl
 			_log = new List<StateLogEventArgs>();
 			
 			CurrentState = State.reset;
+			
 		}
 		
-		public void Initialize()
+		public void Initialize(ArduinoController arduinocontroller)
 		{
 			GoToState(Event.init, State.unconnected);
+			_arduinoController = arduinocontroller;
 		}
 
 		private void GoToState(Event trigger, State newState)
@@ -80,6 +84,8 @@ namespace SlideControl
 					break;
 				
 				case State.idle:
+					
+					_arduinoController.SetLedState(false);
 					
 					/* in case last state was unconnected
 					 * throw message
@@ -209,6 +215,14 @@ namespace SlideControl
 					{
 					 	GoToState(trigger, State.idle);
 					}
+					
+					if (trigger ==  Event.usr_play)
+					{
+					 	_arduinoController.SetLedState(true);
+					}
+					
+				
+					
 					break;
 				
 				case State.menu:

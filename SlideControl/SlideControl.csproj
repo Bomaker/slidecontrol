@@ -32,6 +32,12 @@
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CommandMessenger">
+      <HintPath>..\..\CmdMessenger\extras\CSharp\CommandMessenger\bin\Debug\CommandMessenger.dll</HintPath>
+    </Reference>
+    <Reference Include="CommandMessenger.Transport.Serial">
+      <HintPath>..\..\CmdMessenger\extras\CSharp\CommandMessenger.Transport.Serial\bin\Debug\CommandMessenger.Transport.Serial.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
@@ -51,6 +57,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArduinoController.cs" />
     <Compile Include="Event.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Settings.Designer.cs">
