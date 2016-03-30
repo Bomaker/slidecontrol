@@ -23,6 +23,7 @@ namespace SlideControl
 
 		private ArduinoController _arduinoController;
 		
+		
 		// constructor
 		public StateControl()
 		{
@@ -32,10 +33,16 @@ namespace SlideControl
 			
 		}
 		
-		public void Initialize(ArduinoController arduinocontroller)
+		public void Initialize(MainForm mainform)
 		{
+						/*
+			 * setup Arduino controller
+			 */
+			
+			_arduinoController = new ArduinoController();
+            _arduinoController.Setup(mainform);
+
 			GoToState(Event.init, State.unconnected);
-			_arduinoController = arduinocontroller;
 		}
 
 		private void GoToState(Event trigger, State newState)
@@ -85,7 +92,7 @@ namespace SlideControl
 				
 				case State.idle:
 					
-					_arduinoController.SetLedState(false);
+					_arduinoController.SetLedState(true);
 					
 					/* in case last state was unconnected
 					 * throw message
@@ -218,7 +225,7 @@ namespace SlideControl
 					
 					if (trigger ==  Event.usr_play)
 					{
-					 	_arduinoController.SetLedState(true);
+					 	_arduinoController.SetLedState(false);
 					}
 					
 				
