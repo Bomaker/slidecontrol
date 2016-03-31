@@ -32,12 +32,6 @@
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CommandMessenger">
-      <HintPath>..\..\CmdMessenger\extras\CSharp\CommandMessenger\bin\Debug\CommandMessenger.dll</HintPath>
-    </Reference>
-    <Reference Include="CommandMessenger.Transport.Serial">
-      <HintPath>..\..\CmdMessenger\extras\CSharp\CommandMessenger.Transport.Serial\bin\Debug\CommandMessenger.Transport.Serial.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
@@ -87,6 +81,16 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="doc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CmdMessenger\extras\CSharp\CommandMessenger.Transport.Serial\CommandMessenger.Transport.Serial.csproj">
+      <Project>{00D85F0B-00A5-41FA-8A99-428C0199C663}</Project>
+      <Name>CommandMessenger.Transport.Serial</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CmdMessenger\extras\CSharp\CommandMessenger\CommandMessenger.csproj">
+      <Project>{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}</Project>
+      <Name>CommandMessenger</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

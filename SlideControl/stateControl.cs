@@ -18,7 +18,7 @@ namespace SlideControl
 		// all past transitions for logging and debugging purposes
 		public ReadOnlyCollection<StateLogEventArgs> Log { get { return _log.AsReadOnly(); } }
 
-		// internal r/w collection for the history		
+		// internal r/w collection for the history
 		private List<StateLogEventArgs> _log;
 
 		private ArduinoController _arduinoController;
@@ -35,12 +35,12 @@ namespace SlideControl
 		
 		public void Initialize(MainForm mainform)
 		{
-						/*
+			/*
 			 * setup Arduino controller
 			 */
 			
 			_arduinoController = new ArduinoController();
-            _arduinoController.Setup(mainform);
+			_arduinoController.Setup(mainform);
 
 			GoToState(Event.init, State.unconnected);
 		}
@@ -55,8 +55,7 @@ namespace SlideControl
 			_log.Add(log);
 			
 			// if we want the same state, then do nothing
-			if (fromState != toState)
-			{
+			if (fromState != toState) {
 				CurrentState = toState;
 				var handler = StateChanged;
 				if (handler != null)
@@ -78,14 +77,12 @@ namespace SlideControl
 			// statemashine must be run 2 times in order to execute also input
 			// conditions of states
 			
-			switch (CurrentState)
-			{
+			switch (CurrentState) {
 				case State.unconnected:
 					// try to connect
 					// attempt should be done every second (triggered by ext timer)
 					
-					if (ConnectSerial())
-					{
+					if (ConnectSerial()) {
 						GoToState(Event.serial_connected, State.idle);
 					}
 					break;
@@ -99,9 +96,8 @@ namespace SlideControl
 					 * lastState = thisState;
 					 */
 
-					if (trigger ==  Event.exit)
-					{
-					 	// do nothing
+					if (trigger == Event.exit) {
+						// do nothing
 					}
 					
 					/* 	in case there was one of these do:
@@ -110,12 +106,11 @@ namespace SlideControl
 					 * usr_ff
 					 * usr_rewind
 					 */ 
-					if (trigger ==  Event.usr_play || 
-					   trigger ==  Event.usr_rec || 
-					   trigger ==  Event.usr_ff || 
-					   trigger ==  Event.usr_rewind)
-					{
-					 	GoToState(trigger, State.cont_action);
+					if (trigger == Event.usr_play ||
+					    trigger == Event.usr_rec ||
+					    trigger == Event.usr_ff ||
+					    trigger == Event.usr_rewind) {
+						GoToState(trigger, State.cont_action);
 					}
 					
 					/*
@@ -125,12 +120,11 @@ namespace SlideControl
 					  * usr_prev
 					  * usr_cam
 					  */
-					if (trigger ==  Event.usr_eject || 
-					   trigger ==  Event.usr_next || 
-					   trigger ==  Event.usr_prev || 
-					   trigger ==  Event.usr_cam)
-					{
-					 	GoToState(trigger, State.single_action);
+					if (trigger == Event.usr_eject ||
+					    trigger == Event.usr_next ||
+					    trigger == Event.usr_prev ||
+					    trigger == Event.usr_cam) {
+						GoToState(trigger, State.single_action);
 					}
 					
 					/*
@@ -139,9 +133,8 @@ namespace SlideControl
 						 * lastState = thisState;
 						 * thisState = states.cont_single;
 						 */
-					if (trigger ==  Event.usr_menu)
-					{
-					 	GoToState(trigger, State.menu);
+					if (trigger == Event.usr_menu) {
+						GoToState(trigger, State.menu);
 					}
 
 					/*
@@ -151,7 +144,7 @@ namespace SlideControl
 					  * thisState = states.unconnected;
 					  */
 
-					 break;
+					break;
 					
 				case State.single_action:
 					
@@ -165,46 +158,39 @@ namespace SlideControl
 					/* reset counter and return to idle
 					 * usr_eject -> 	reset 0 
 					 */
-					if (trigger ==  Event.usr_eject)
-					{
-					 	GoToState(Event.exit, State.idle);
+					if (trigger == Event.usr_eject) {
+						GoToState(Event.exit, State.idle);
 					} else
 					
 											 
 					/* usr_next -> 		set_dir configDirection
 					 * 					switch 1
 					 */
-					if (trigger ==  Event.usr_next)
-					{
-					 	GoToState(Event.exit, State.idle);
+					if (trigger == Event.usr_next) {
+						GoToState(Event.exit, State.idle);
 					} else
 					
 					/* usr_prev ->		set_dir not(configDirection)
 					 * 					switch 1
 					 */
-					if (trigger ==  Event.usr_prev)
-					{
-					 	GoToState(Event.exit, State.idle);
+					if (trigger == Event.usr_prev) {
+						GoToState(Event.exit, State.idle);
 					} else
 					
 					/* 
 					 * usr_cam -> 		trigger_cam
 					 */
-					if (trigger ==  Event.usr_cam)
-					{
-					 	GoToState(Event.exit, State.idle);
+					if (trigger == Event.usr_cam) {
+						GoToState(Event.exit, State.idle);
 					} else 
 					
 					
 					/* return to idle (this should never occur, because one of the above must
 					 * have been done alredy
 					 */
-					if (trigger ==  Event.usr_stop)
-					{
-					 	GoToState(Event.exit, State.idle);
-					} else
-						
-					{
+					if (trigger == Event.usr_stop) {
+						GoToState(Event.exit, State.idle);
+					} else {
 						GoToState(Event.exit, State.idle);
 					}
 					
@@ -218,14 +204,12 @@ namespace SlideControl
 					 * lastState = thisState;
 					 * thisState = states.idle;
 					 */
-					if (trigger ==  Event.usr_stop)
-					{
-					 	GoToState(trigger, State.idle);
+					if (trigger == Event.usr_stop) {
+						GoToState(trigger, State.idle);
 					}
 					
-					if (trigger ==  Event.usr_play)
-					{
-					 	_arduinoController.SetLedState(false);
+					if (trigger == Event.usr_play) {
+						_arduinoController.SetLedState(false);
 					}
 					
 				
@@ -239,9 +223,8 @@ namespace SlideControl
 					 * lastState = thisState;
 					 * thisState = states.menu;
 					 */
-					if (trigger ==  Event.usr_menu_exit)
-					{
-					 	GoToState(trigger, State.idle);
+					if (trigger == Event.usr_menu_exit) {
+						GoToState(trigger, State.idle);
 					}
 					
 					break;

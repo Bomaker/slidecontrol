@@ -1,13 +1,4 @@
-﻿/*
- * Created by SharpDevelop.
- * User: Sysop
- * Date: 30.03.2016
- * Time: 15:05
- * 
- * To change this template use Tools | Options | Coding | Edit Standard Headers.
- */
- 
-// *** ArduinoController ***
+﻿// *** ArduinoController ***
 
 // Copied and modified from CmdMessenger example
 
